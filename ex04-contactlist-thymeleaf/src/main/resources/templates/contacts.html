@@ -11,7 +11,30 @@
     </header>
     <main>
         <h1>Contacts</h1>
-        <p><em>TODO</em></p>
+        <div th:if="${#response.status==404}">
+            <strong>Fehler 404:</strong> Kontakt nicht gefunden
+        </div>
+        <div th:if="${contact != null}">
+            <table>
+                <tr th:replace="fragments::singleRow('First name', ${contact.firstName})">
+                </tr>
+                <tr th:replace="fragments::singleRow('Lastname', ${contact.lastName})">
+                </tr>
+                <tr th:replace="fragments::multiRow('Email', ${contact.email})"></tr>
+                <tr th:replace="fragments::multiRow('Phone', ${contact.getPhone()})"></tr>
+                <tr th:replace="fragments::singleRow('job title', ${contact.jobTitle})">
+                </tr>
+                <tr th:replace="fragments::singleRow('Company', ${contact.company})">
+                </tr>
+
+
+            </table>
+        </div>
+        <ol>
+            <li th:each="entry : ${contactList}">
+                <a th:text="${entry.getName()}" th:href="@{/contacts/{id}(id=${entry.getId()})}">Contact</a>
+            </li>
+        </ol>
     </main>
     <footer>
         built with <a href="https://spring.io/">Spring</a>

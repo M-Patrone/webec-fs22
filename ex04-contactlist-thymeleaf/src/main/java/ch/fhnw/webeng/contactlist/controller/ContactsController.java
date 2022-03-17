@@ -17,7 +17,7 @@ public class ContactsController {
 
     public ContactsController(ContactService service) {
         this.service = service;
-    }
+    } //dependency injection
 
     @GetMapping("/contacts")
     public String contacts(Model model) {
@@ -25,7 +25,7 @@ public class ContactsController {
         return "contacts";
     }
 
-    @GetMapping("/contacts/{id}")
+    @GetMapping("/contacts/{id}") //in {} ist eine Variabel
     public String showContact(@PathVariable int id, Model model) {
         var contact = service.findContact(id).orElseThrow(ContactNotFound::new);
         model.addAttribute("contactList", service.getContactList());
