@@ -1,0 +1,7 @@
+<nav th:fragment="navbar" id="navContainer">
+        <ul class="container">
+            <li class="column" ><a th:class="${#request.servletPath.equals('/')?'active':'' }" href="/">Home</a></li>
+            <li class="column"><a th:class="${#request.servletPath.startsWith('/contacts/')?'active':'' }" href="/contacts/">Contacts</a></li>
+            <li class="column"><a  th:class="${#request.servletPath.equals('/about/')?'active':'' }" href="/about/">About</a></li>
+        </ul>
+</nav>

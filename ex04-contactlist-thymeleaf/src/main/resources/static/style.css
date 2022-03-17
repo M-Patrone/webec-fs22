@@ -7,7 +7,12 @@ body {
     background-color: whitesmoke;
 }
 
-#container {
+#container{
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.containerMain {
     max-width: 800px;
     margin: 0 auto;
 }
@@ -50,7 +55,7 @@ h1, h2 {
 }
 
 a {
-    color: crimson;
+    color: gray;
 }
 
 a:not(:hover) {
@@ -61,4 +66,52 @@ footer {
     font-size: 80%;
     color: #737373;
     margin-bottom: 2em;
+}
+.container{
+    display: flex;
+}
+.active{
+    color:red;
+}
+ul, ol {
+    list-style-type: none;
+    padding:0px;
+}
+.box{
+    padding: 20px;
+    padding-left: 50px;
+}
+.label{
+    font-weight: bolder;
+}
+.tdAbout{
+    width: 100%;
+}
+.navContainer{
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+nav {
+    margin: 1em 0;
+    padding: 2em;
+    background: white;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.20);
+}
+
+nav > :last-child {
+    margin-bottom: 0;
+}
+
+nav > :first-child {
+    margin-top: 0;
 }

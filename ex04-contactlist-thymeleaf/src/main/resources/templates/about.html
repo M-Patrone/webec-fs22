@@ -1,0 +1,33 @@
+<html th:replace="page::html(~{::title},~{::main})">
+<title>About</title>
+<main>
+    <nav th:replace="menu::navbar"></nav>
+    <div class="containerMain">
+        <h1>About</h1>
+        <div class="container">
+            <table>
+                <tr>
+                    <td class="tdAbout">About</td>
+                    <td class="tdAbout">Es ist eine Kontaktapplikation</td>
+                </tr>
+                <tr>
+                    <td>Link FHNW:</td>
+                    <td><a href="https://www.fhnw.ch/de/">FHNW</a></td>
+                </tr>
+                <tr>
+                    <td>Anzahl Kontakte:</td>
+                    <td th:text="${CountOfContact}"></td>
+                </tr>
+                <tr>
+                    <td>Anzahl Telefonnummer:</td>
+                    <td th:text="${CountOfPhone}"></td>
+                </tr>
+                <tr>
+                    <td>Anzahl Emails:</td>
+                    <td th:text="${CountOfEmail}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</main>
+</html>

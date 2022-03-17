@@ -1,43 +1,43 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="html(title,content)">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/style.css" th:href="@{/style.css}">
-    <title>Contacts</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="html(title,content)"
+      th:replace="page::html(~{::title},~{::main})"
+>
+<title>Contact List – Contacts</title>
 <div id="container">
     <header>
         <h1>Contact List</h1>
     </header>
     <main>
+        <nav th:replace="menu::navbar"></nav>
         <h1>Contacts</h1>
         <div th:if="${#response.status==404}">
             <strong>Fehler 404:</strong> Kontakt nicht gefunden
         </div>
-        <div th:if="${contact != null}">
-            <table>
-                <tr th:replace="fragments::singleRow('First name', ${contact.firstName})">
-                </tr>
-                <tr th:replace="fragments::singleRow('Lastname', ${contact.lastName})">
-                </tr>
-                <tr th:replace="fragments::multiRow('Email', ${contact.email})"></tr>
-                <tr th:replace="fragments::multiRow('Phone', ${contact.getPhone()})"></tr>
-                <tr th:replace="fragments::singleRow('job title', ${contact.jobTitle})">
-                </tr>
-                <tr th:replace="fragments::singleRow('Company', ${contact.company})">
-                </tr>
-
-
-            </table>
+        <div class="container">
+            <div>
+                <ol>
+                    <li th:each="entry : ${contactList}">
+                        <a th:text="${entry.getName()}" th:href="@{/contacts/{id}(id=${entry.getId()})}"
+                           th:class="${ contact !=null && contact.getId() == entry.getId()? 'active':''}"
+                        >Contact</a>
+                    </li>
+                </ol>
+            </div>
+            <div th:if="${contact != null}" class="box">
+                <table>
+                    <tr th:replace="fragments::singleRow('First name', ${contact.firstName})">
+                    </tr>
+                    <tr th:replace="fragments::singleRow('Lastname', ${contact.lastName})">
+                    </tr>
+                    <tr th:replace="fragments::multiRow('Email', ${contact.email})"></tr>
+                    <tr th:replace="fragments::multiRow('Phone', ${contact.getPhone()})"></tr>
+                    <tr th:replace="fragments::singleRow('job title', ${contact.jobTitle})">
+                    </tr>
+                    <tr th:replace="fragments::singleRow('Company', ${contact.company})">
+                    </tr>
+                </table>
+            </div>
         </div>
-        <ol>
-            <li th:each="entry : ${contactList}">
-                <a th:text="${entry.getName()}" th:href="@{/contacts/{id}(id=${entry.getId()})}">Contact</a>
-            </li>
-        </ol>
     </main>
-    <footer>
-        built with <a href="https://spring.io/">Spring</a>
-    </footer>
 </div>
 </html>

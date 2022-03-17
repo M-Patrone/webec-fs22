@@ -37,6 +37,15 @@ public class ContactService {
                 .collect(toList());
     }
 
+    public int getNumberOfPhoneNumbers(){
+        return contacts.values().stream().mapToInt(m -> m.getPhone().size()).sum();
+    }
+    public int getNumberOfEmails(){
+        return contacts.values().stream().mapToInt(m -> m.getEmail().size()).sum();
+    }
+
+
+
     public Optional<Contact> findContact(int id) {
         return Optional.ofNullable(contacts.get(id));
     }
