@@ -18,6 +18,9 @@
         <div class="error" th:if="${contact == null && #response.status == 404}">
             <strong>404</strong> – Contact not found
         </div>
+        <div class="error" th:if="${err != null && #response.status == 400}">
+            <strong>400</strong> – <span th:text="${err}"></span>
+        </div>
         <div>
 
             <p>

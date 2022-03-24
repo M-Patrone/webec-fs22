@@ -1,10 +1,9 @@
 package webeng.contactlist.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,6 @@ import webeng.contactlist.service.ContactService;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import java.util.Set;
@@ -27,6 +25,8 @@ public class ContactsController {
 
     private final ContactService service;
 
+    @Value("${min.length.search}")
+    private int minLength;
 
     private String searchText = null;
 
@@ -35,10 +35,12 @@ public class ContactsController {
     }
 
     @GetMapping("/contacts")
-    public String contacts(@Validated @RequestParam(required = false) @Size(max = 10, min = 3, message = "should be min length of 3") String searchText,
+    public String contacts( @RequestParam(required = false) String searchText,
                            Model model
      ) {
-
+        if(searchText!=null && searchText.length()<minLength){
+            throw new RuntimeException("searchtext has to be at minimum 5 char long");
+        }
         this.searchText = searchText;
         model.addAttribute("contactList", service.searchContact(searchText));
         model.addAttribute("textToBeSearched", this.searchText);
@@ -76,6 +78,14 @@ public class ContactsController {
             strBuilder.append(violation.getMessage() + "\n");
         }
         return strBuilder.toString();
+    }
+    @ExceptionHandler(value = {RuntimeException.class})
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public String handleInValidSearch(RuntimeException e, Model model) {
+        String violations = e.getMessage();
+        model.addAttribute("contactList", service.searchContact(null));
+        model.addAttribute("err", violations);
+        return "contacts";
     }
 
     private static class ContactNotFound extends RuntimeException {
