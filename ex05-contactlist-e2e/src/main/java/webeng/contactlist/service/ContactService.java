@@ -55,21 +55,31 @@ public class ContactService {
                 .sum();
     }
 
-    public List<Contact> searchContact(String searchText){
+    public List<ContactListEntry> searchContact(String searchText){
+        if(searchText==null || searchText.isEmpty()){
+            return this.getContactList();
+        }
         searchText = searchText.toLowerCase();
-        var resutl = new ArrayList<Contact>();
-        for(var contact: contacts.values()){
-            if(contact.getFirstName().toLowerCase().contains(searchText) ||
-                contact.getLastName().toLowerCase().contains(searchText)||
-                contact.getCompany().toLowerCase().contains(searchText)||
-                contact.getJobTitle().toLowerCase().contains(searchText) ||
-                listContains( contact.getEmail(),searchText) ||
-                listContains( contact.getPhone(),searchText)
+        var resutl = new ArrayList<ContactListEntry>();
+        for(var c: contacts.values()){
+            if(matches(searchText, c)
             ){
-                resutl.add(contact);
+                resutl.add(new ContactListEntry(c.getId(), c.getFirstName() + " " + c.getLastName()));
             }
         }
         return resutl;
+    }
+
+    private boolean matches(String searchText, Contact contact) {
+        boolean bCompany = contact.getCompany() != null && contact.getCompany().toLowerCase().contains(searchText);
+        boolean bJobTitle = contact.getJobTitle() != null && contact.getJobTitle().toLowerCase().contains(searchText);
+
+        return contact.getFirstName().toLowerCase().contains(searchText) ||
+            contact.getLastName().toLowerCase().contains(searchText) ||
+            bCompany ||
+            bJobTitle ||
+            listContains(contact.getEmail(), searchText) ||
+            listContains(contact.getPhone(), searchText);
     }
 
     private boolean listContains(List<String> email, String searchText) {

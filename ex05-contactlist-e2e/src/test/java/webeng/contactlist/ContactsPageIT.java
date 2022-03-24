@@ -45,4 +45,35 @@ public class ContactsPageIT {
         assertTrue(detailsTable.getText().contains("Librarian"));
     }
 
+    @Test
+    public void contactSearchTest(){
+        //preparte
+        WebElement search = page.getSearchBox();
+
+        //act
+        search.sendKeys("cat");
+        page.getSubmitSearch().click();
+
+        //assert
+        assertEquals(2,page.getLinks().size());
+
+    }
+
+    @Test
+    public void contactSearchClearTest(){
+        //preparte
+        WebElement search = page.getSearchBox();
+
+        search.sendKeys("cat");
+        page.getSubmitSearch().click();
+
+        //pre assert
+        assertEquals(2,page.getLinks().size());
+
+        //act
+        page.getSubmitClear().click();
+
+        assertEquals(30,page.getLinks().size());
+    }
+
 }

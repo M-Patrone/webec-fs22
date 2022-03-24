@@ -18,6 +18,21 @@
         <div class="error" th:if="${contact == null && #response.status == 404}">
             <strong>404</strong> – Contact not found
         </div>
+        <div>
+
+            <p>
+            <form method="get" action="/contacts" class="searchComponent">
+                <label for="searchText">Search: </label><input type="text" minlength="3"  th:value="${textToBeSearched}"
+                                                               name="searchText" id="searchText">
+                <input type="submit" id="subSearch" value="Search">
+            </form>
+            <form method="get" action="/resetsearch" class="searchComponent">
+                <input type="submit" id="subClear" value="Clear">
+            </form>
+            </p>
+
+
+        </div>
         <table th:if="${contact != null}">
             <tr th:replace="fragments/contacts::row('First name',${contact.firstName})"></tr>
             <tr th:replace="fragments/contacts::row('Last name',${contact.lastName})"></tr>

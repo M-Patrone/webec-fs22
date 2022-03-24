@@ -20,6 +20,15 @@ public class ContactsPage {
     @FindBy(css="#contacts table")
     private List<WebElement> tables;
 
+    @FindBy(css="#searchText")
+    private List<WebElement> searchBox;
+
+    @FindBy(css="#subSearch")
+    private List<WebElement> submitSearch;
+
+    @FindBy(css="#subClear")
+    private List<WebElement> submitClear;
+
     public List<WebElement> getLinks() {
         return links;
     }
@@ -30,5 +39,17 @@ public class ContactsPage {
 
     public WebElement detailsTable(){
         return tables.get(0);
+    }
+
+    public WebElement getSearchBox() {
+        return searchBox.get(0);
+    }
+
+    public WebElement getSubmitSearch() {
+        return submitSearch.get(0);
+    }
+
+    public WebElement getSubmitClear() {
+        return submitClear.get(0);
     }
 }

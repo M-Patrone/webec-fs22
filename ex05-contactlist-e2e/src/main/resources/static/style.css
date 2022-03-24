@@ -182,3 +182,6 @@ table li {
 #contacts table {
     width: 100%;
 }
+.searchComponent {
+    display: inline;
+}
