@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import webeng.contactlist.service.ContactService;
 
@@ -20,7 +21,7 @@ public class ContactsController {
     }
 
     @GetMapping("/contacts")
-    public String contacts(Model model) {
+    public String contacts(Model model, @RequestParam(required = false) String searchText) {
         model.addAttribute("contactList", service.getContactList());
         return "contacts";
     }

@@ -7,7 +7,9 @@ import webeng.contactlist.model.Contact;
 import webeng.contactlist.model.ContactListEntry;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -51,5 +53,31 @@ public class ContactService {
         return contacts.values().stream()
                 .mapToInt(c -> c.getEmail().size())
                 .sum();
+    }
+
+    public List<Contact> searchContact(String searchText){
+        searchText = searchText.toLowerCase();
+        var resutl = new ArrayList<Contact>();
+        for(var contact: contacts.values()){
+            if(contact.getFirstName().toLowerCase().contains(searchText) ||
+                contact.getLastName().toLowerCase().contains(searchText)||
+                contact.getCompany().toLowerCase().contains(searchText)||
+                contact.getJobTitle().toLowerCase().contains(searchText) ||
+                listContains( contact.getEmail(),searchText) ||
+                listContains( contact.getPhone(),searchText)
+            ){
+                resutl.add(contact);
+            }
+        }
+        return resutl;
+    }
+
+    private boolean listContains(List<String> email, String searchText) {
+        for(var element: email){
+            if(element.toLowerCase().contains(searchText)){
+                return true;
+            }
+        }
+        return false;
     }
 }
