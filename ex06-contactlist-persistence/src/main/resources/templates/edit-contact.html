@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="fragments/page::html(~{::title},~{::main})">
+<title>Contacts - Edit</title>
+<main>
+  <div th:replace="fragments/mut-contact::mutRow(${contactToEdit})">
+  </div>
+</main>
+</html>

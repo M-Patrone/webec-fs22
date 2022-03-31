@@ -29,7 +29,7 @@
             <span th:text="${contactList.size}">10</span> contacts found
         </div>
         <div class="info" th:if="${contact == null && errorMessage == null && search == null}" id="select-contact-msg">
-            Select a contact on the left
+            Select a contact on the left or <a th:href="@{'/contacts/add'}">create a new one</a>
         </div>
         <div th:if="${contact != null}">
             <table id="contact-details">
@@ -40,6 +40,9 @@
                 <tr th:replace="fragments/contacts::textRow('Job title','job-title',${contact.jobTitle},${search})"></tr>
                 <tr th:replace="fragments/contacts::textRow('Company','company',${contact.company},${search})"></tr>
             </table>
+            <p>
+                <a th:href="@{'/contacts/edit/'+${contact.getId()}}">Edit</a>
+            </p>
         </div>
     </div>
 </main>

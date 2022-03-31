@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="fragments/page::html(~{::title},~{::main})">
+<title>Contacts - Mut</title>
+<script>
+
+</script>
+<main>
+    <div th:fragment="mutRow(contactToMut)">
+        <form method="post" th:action="${contactToMut == null ? '/contacts/add':'/contacts/edit/'+contactToMut.id}">
+            <label for="firstName">First name in temp</label><br>
+            <input name="firstName" id="firstName" type="text"
+                   th:value="${contactToMut == null ? '':contactToMut.firstName}"><br>
+            <label for="lastName">Last name</label><br>
+            <input name="lastName" id="lastName" type="text"
+                   th:value="${contactToMut == null ? '':contactToMut.lastName}"><br>
+            <label for="jobTitle">Job title</label><br>
+            <input name="jobTitle" id="jobTitle" type="text"
+                   th:value="${contactToMut == null ? '':contactToMut.jobTitle}"><br>
+            <label for="company">company</label><br>
+            <input name="company" id="company" type="text" th:value="${contactToMut == null ? '':contactToMut.company}"><br>
+            <br>
+            <p>E-Mail Adressen</p>
+            <div th:if="${contactToMut != null}">
+                <ul>
+                    <li th:each="entry,iter : ${contactToMut.email}">
+                        <input th:name="|emailMut${iter.index}|" th:value="${entry==null?'':entry}" type="text">
+                        <input type="checkbox" th:name="|deleteEmail${iter.index}|" th:id="|del-email-${iter.index}|">
+                        <label th:for="|del-email-${iter.index}|">Delete</label>
+                        <br>
+                    </li>
+                </ul>
+            </div>
+            <br>
+            <label for="newEmail">New E-Mail</label><br>
+            <input name="newEmail" id="newEmail" type="text">
+            <br>
+            <br>
+            <input type="submit" th:value="${contactToMut == null ? 'Add':'Edit'}">
+        </form>
+    </div>
+</main>
+</html>
