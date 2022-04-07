@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import webeng.contactlist.SampleContactsAdder;
 import webeng.contactlist.model.ContactListEntry;
 import webeng.contactlist.model.ContactRepository;
@@ -17,6 +18,7 @@ import static java.util.stream.IntStream.rangeClosed;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@ActiveProfiles("test")
 class ContactServiceIT {
 
     ContactService service;

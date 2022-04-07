@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="fragments/page::html(~{::title},~{::main})">
+<html lang="en" th:replace="fragments/page::html(~{::title},~{::main})" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <title>Contact List – Contacts</title>
 <main id="contacts" th:with="search=${#request.getParameter('search')}">
     <nav th:unless="${contactList.isEmpty}">
@@ -24,12 +24,14 @@
              id="contact-error" th:text="${errorMessage}">
             Error
         </div>
-        <div class="info"  th:if="${contact == null && errorMessage == null && search != null}" id="contacts-found-msg">
+        <div class="info" th:if="${contact == null && errorMessage == null && search != null}" id="contacts-found-msg">
             <span th:text="${contactList.size}">10</span> contacts found
         </div>
         <div class="info" th:if="${contact == null && errorMessage == null && search == null}" id="select-contact-msg">
-            Select a contact on the left or
-            <a th:href="@{/contacts/add}">add a new one</a>
+            Select a contact on the left
+            <span th:if="${#authorization.expr('hasRole(''ADMIN'')')}">
+                or   <a th:href="@{/contacts/add}">add a new one</a>
+            </span>
         </div>
         <div th:if="${contact != null}">
             <table id="contact-details">
@@ -40,7 +42,7 @@
                 <tr th:replace="fragments/contacts::textRow('Job title','job-title',${contact.jobTitle},${search})"></tr>
                 <tr th:replace="fragments/contacts::textRow('Company','company',${contact.company},${search})"></tr>
             </table>
-            <div class="paragraph">
+            <div class="paragraph" sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{${contact.id} + '/edit'}" class="button">Edit</a>
                 <form th:action="@{${contact.id} + '/delete'}" method="post" style="display: inline;">
                     <input type="submit" value="Delete">
