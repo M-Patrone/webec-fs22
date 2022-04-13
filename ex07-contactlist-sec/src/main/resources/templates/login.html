@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="fragments/page::html(~{::title},~{::main})">
+<title>Contact List – Add Contact</title>
+<main>
+    <div id="login">
+        <form method="post" th:action="@{/login}">
+            <p>
+                <label for="username" class="padded-label">Username:</label>
+                <input type="text" placeholder="username" name="username" id="username"
+                       required>
+            </p>
+            <p>
+                <label for="password" class="padded-label">Password:</label>
+                <input type="password" name="password" id="password"
+                       required >
+            </p>
+            <input type="submit" value="login">
+        </form>
+    </div>
+</main>
+</html>

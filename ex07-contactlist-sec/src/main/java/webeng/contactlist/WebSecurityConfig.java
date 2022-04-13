@@ -21,7 +21,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .regexMatchers("/contacts/[0-9]+").authenticated()
             .anyRequest().hasRole("ADMIN")
             .and()
-            .formLogin();
+            .formLogin()
+            .loginPage("/login")
+            .permitAll()
+            .and()
+            .logout().permitAll();
+
     }
 
     @Bean //bedeutet Objekt welches von Spring verwaltet wird
@@ -34,6 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         var admin = User.withDefaultPasswordEncoder()
             .username("admin").password("admin")
             .roles("ADMIN").build();
-    return new InMemoryUserDetailsManager(user,admin);
+        return new InMemoryUserDetailsManager(user, admin);
     }
 }
