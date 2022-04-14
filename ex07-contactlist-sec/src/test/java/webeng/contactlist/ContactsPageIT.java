@@ -1,8 +1,10 @@
 package webeng.contactlist;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.opentest4j.AssertionFailedError;
@@ -30,6 +32,14 @@ class ContactsPageIT {
     int port;
 
     HtmlUnitDriver driver = new HtmlUnitDriver();
+
+    @BeforeEach
+    public void setup(){
+        driver.navigate().to("http://localhost:"+port+"/login");
+        driver.findElement(By.id("username")).sendKeys("user");
+        driver.findElement(By.id("password")).sendKeys("user");
+        driver.findElement(By.cssSelector("[type=submit]")).click();
+    }
 
     @Test
     void initialPageShowsNoContactDetails() {
