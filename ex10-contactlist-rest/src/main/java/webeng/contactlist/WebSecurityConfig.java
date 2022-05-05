@@ -25,6 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/about").permitAll()
                     .antMatchers("/**.css").permitAll()
                     .antMatchers("/h2-console/**").permitAll()
+                    .antMatchers("/api/**").permitAll()
                     .antMatchers("/contacts").authenticated()
                     .regexMatchers("/contacts/[0-9]+").authenticated()
                     .anyRequest().hasRole("ADMIN")

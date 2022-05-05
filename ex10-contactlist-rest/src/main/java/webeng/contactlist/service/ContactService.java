@@ -29,6 +29,10 @@ public class ContactService {
                 .collect(toList());
     }
 
+    public List<Contact> getAllContacts(){
+        return repo.findAll();
+    }
+
     private boolean matches(Contact contact, String search) {
         return search == null ||
                 matches(contact.getFirstName(), search) ||
