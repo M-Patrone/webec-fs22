@@ -1,7 +1,22 @@
 GET http://localhost:8080/api/contacts;
 
 ###
-GET http://localhost:8080/api/contacts/4
+GET http://localhost:8080/api/contacts/3
 
 ###
 GET http://localhost:8080/api/contacts/400
+
+###
+DELETE http://localhost:8080/api/contacts/4
+
+###
+POST http://localhost:8080/api/contacts
+
+Content-Type: application/json
+{
+  "firstName": "Manuel",
+  "lastName": "Patrone",
+  "phone": ["405-580-6403"],
+  "jobTitle": "software engineer",
+  "company": "google"
+}
